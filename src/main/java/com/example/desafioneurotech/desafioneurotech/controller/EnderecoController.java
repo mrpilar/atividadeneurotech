@@ -34,7 +34,7 @@ public class EnderecoController {
 	@Transactional
 	public ResponseEntity<Endereco> salvar(@PathVariable Long id, @Valid @RequestBody Endereco obj,
 			UriComponentsBuilder uriBuilder) throws BadHttpRequest {
-
+		
 		Usuario usuario = usuarioService.findById(id);
 		obj.setUsuario(usuario);
 		enderecoRepository.save(obj);
