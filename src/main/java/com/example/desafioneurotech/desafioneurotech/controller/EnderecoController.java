@@ -18,7 +18,6 @@ import com.example.desafioneurotech.desafioneurotech.model.Usuario;
 import com.example.desafioneurotech.desafioneurotech.repository.EnderecoRepository;
 import com.example.desafioneurotech.desafioneurotech.service.UsuarioService;
 
-import javassist.tools.web.BadHttpRequest;
 
 @RestController
 @RequestMapping(value = "/endereco")
@@ -33,7 +32,7 @@ public class EnderecoController {
 	@PostMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<Endereco> salvar(@PathVariable Long id, @Valid @RequestBody Endereco obj,
-			UriComponentsBuilder uriBuilder) throws BadHttpRequest {
+			UriComponentsBuilder uriBuilder) {
 		
 		Usuario usuario = usuarioService.findById(id);
 		obj.setUsuario(usuario);

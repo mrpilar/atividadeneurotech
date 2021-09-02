@@ -1,12 +1,14 @@
 package com.example.desafioneurotech.desafioneurotech.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,26 +26,26 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEndereco;
-	
-	@NotEmpty
+
+	@NotBlank
 	private String logradouro;
-	
+
 	@NotNull
 	private int numero;
-	
-	@NotEmpty
+
+	@NotBlank
 	private String complemento;
-	
-	@NotEmpty
+
+	@NotBlank
 	private String bairro;
-	
-	@NotEmpty
+
+	@NotBlank
 	private String cidade;
-	
-	@NotEmpty
+
+	@NotBlank
 	private String estado;
-	
-	@NotEmpty
+
+	@NotBlank
 	private String cep;
 
 	@JsonIgnore
