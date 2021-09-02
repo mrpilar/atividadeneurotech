@@ -18,7 +18,6 @@ import com.example.desafioneurotech.desafioneurotech.model.Usuario;
 import com.example.desafioneurotech.desafioneurotech.repository.EnderecoRepository;
 import com.example.desafioneurotech.desafioneurotech.service.UsuarioService;
 
-
 @RestController
 @RequestMapping(value = "/endereco")
 public class EnderecoController {
@@ -33,13 +32,12 @@ public class EnderecoController {
 	@Transactional
 	public ResponseEntity<Endereco> salvar(@PathVariable Long id, @Valid @RequestBody Endereco obj,
 			UriComponentsBuilder uriBuilder) {
-		
-		Usuario usuario = usuarioService.findById(id);
-		obj.setUsuario(usuario);
-		enderecoRepository.save(obj);
+			Usuario usuario = usuarioService.findById(id);
+			obj.setUsuario(usuario);
+			enderecoRepository.save(obj);
 
-		URI uri = uriBuilder.path("/endereco/{id}").buildAndExpand(obj.getIdEndereco()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+			URI uri = uriBuilder.path("/endereco/{id}").buildAndExpand(obj.getIdEndereco()).toUri();
+			return ResponseEntity.created(uri).body(obj);
 
 	}
 

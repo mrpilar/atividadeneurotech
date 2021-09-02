@@ -1,6 +1,8 @@
 package com.example.desafioneurotech.desafioneurotech.controller;
 
 import java.net.URI;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -28,18 +30,23 @@ public class UsuarioController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Usuario> salvar(@Valid @RequestBody Usuario usuario, UriComponentsBuilder uriBuilder) {
-		usuarioRepository.save(usuario);
+	public ResponseEntity<?> salvar(@Valid @RequestBody Usuario usuario, UriComponentsBuilder uriBuilder) {
 
+		Optional<Usuario> optional = usuarioRepository.findByCpf(usuario.getCpf());
+		Optional<Usuario> optional2 = usuarioRepository.findByEmail(usuario.getEmail());
+		if (optional.isPresent() || optional2.isPresent()) {
+			return ResponseEntity.badRequest().body("Usuário cadastrado!");
+		}
+		usuarioRepository.save(usuario);
 		URI uri = uriBuilder.path("/pessoa/{id}").buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).body(usuario);
+
 	}
 
 	@GetMapping("/{id}")
 	public Usuario findById(@PathVariable Long id) {
 		return usuarioRepository.findById(id)
-                .orElseThrow(() -> 
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não cadastrado!"));
 	}
 
 }
